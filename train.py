@@ -47,6 +47,7 @@ class Net(torch.nn.Module):
 
 
 def main():
+    #前準備
     mnist_list = load_mnist_graph(data_size=data_size)
     device = torch.device('cuda')
     model = Net().to(device)
@@ -64,6 +65,7 @@ def main():
 
     print("Start Train")
     
+    #学習部分
     model.train()
     for epoch in range(epoch_num):
         train_loss = 0.0
@@ -105,11 +107,12 @@ def main():
         print('Test Accuracy: {:.2f} %%'.format(100 * float(correct/total)), end='  ')
         print(f'Test Loss: {loss.cpu().item()/batch_num:.3f}',end=endstr)
 
+
     print('Finished Training')
 
+    #最終結果出力
     correct = 0
     total = 0
-
     with torch.no_grad():
         for data in testloader:
             data = data.to(device)
